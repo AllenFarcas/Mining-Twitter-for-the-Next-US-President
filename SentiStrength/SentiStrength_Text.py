@@ -31,6 +31,7 @@ with open(outputname, 'w', encoding="utf-8") as writer:
         if len(text) != 100:
             print(len(text))
         writer.write("\n".join(text))
+        writer.write("\n")
         i = i + 1
         j += len(text)
     print(i, j)

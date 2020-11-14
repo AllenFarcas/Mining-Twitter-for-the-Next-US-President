@@ -2,8 +2,7 @@ import pandas as pd
 import numpy as np
 import re
 
-#filename = "SentiStrength+results.txt"
-filename = "last.txt"
+filename = "SentiStrength+results.txt"
 jsonname = "../dataset_filt.jsonl"
 outputname = "SentiStrength_labels.csv"
 chunksize = 100
