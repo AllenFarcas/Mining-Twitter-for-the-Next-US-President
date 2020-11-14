@@ -23,9 +23,14 @@ chunks = pd.read_json(filename, orient="records", chunksize=chunksize, lines=Tru
 with open(outputname, 'w', encoding="utf-8") as writer:
     writer.write("\n") #Write new line since SentiStrength Windows IDE reads first line as header
     i = 1
+    j = 0
     for chunk in chunks:
         if i % 1000 == 0:
             print("Chunk " + str(i))
         text = [preprocess_text(t) for t in chunk.iloc[:]['full_text']]
+        if len(text) != 100:
+            print(len(text))
         writer.write("\n".join(text))
         i = i + 1
+        j += len(text)
+    print(i, j)
