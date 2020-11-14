@@ -4,8 +4,8 @@
 import pandas as pd
 import re
 
-filename = "../Datasets/dataset_filt_small.jsonl"
-outputname = "SentiStrength_test.txt"
+filename = "../dataset_filt.jsonl"
+outputname = "SentiStrength.txt"
 chunksize = 100
 
 #Data preprocessing to removes @usernames,urls,symbols and makes all text lowercase
@@ -15,11 +15,17 @@ def preprocess_text(text):
     text = text.lower().replace("ё", "е")
     text = re.sub('[^a-zA-Zа-яА-Я1-9]+',' ', text)
     text = re.sub(' +',' ', text)
+    if text.strip() == "":
+        text = "empty"
     return text.strip()
 
 chunks = pd.read_json(filename, orient="records", chunksize=chunksize, lines=True, nrows=5000000)
-with open(outputname, 'w') as writer:
+with open(outputname, 'w', encoding="utf-8") as writer:
     writer.write("\n") #Write new line since SentiStrength Windows IDE reads first line as header
+    i = 1
     for chunk in chunks:
+        if i % 1000 == 0:
+            print("Chunk " + str(i))
         text = [preprocess_text(t) for t in chunk.iloc[:]['full_text']]
         writer.write("\n".join(text))
+        i = i + 1
