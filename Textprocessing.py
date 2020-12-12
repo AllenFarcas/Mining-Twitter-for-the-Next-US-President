@@ -4,12 +4,12 @@ import re
 import nltk
 
 #Data preprocessing to removes @usernames,urls,symbols and makes all text lowercase
-def preprocess_text(text):
-    text = re.sub('((www\.[^\s]+)|(https?://[^\s]+))','URL', text)
-    text = re.sub('@[^\s]+','', text)
-    text = text.lower().replace("ё", "е")
-    text = re.sub('[^a-zA-Zа-яА-Я1-9]+',' ', text)
-    text = re.sub(' +',' ', text)
+def preprocess_text(tweet):
+    tweet = re.sub('@[^\s]+','', tweet)
+    tweet = re.sub('((www\.[^\s]+)|(https?://[^\s]+))','URL', tweet)
+    tweet = tweet.lower()
+    tweet = re.sub('[^a-zA-Z]+',' ', tweet)
+    tweet = re.sub(' +',' ', tweet)
     return text.strip()
 
 if __name__ == "__main__":	
