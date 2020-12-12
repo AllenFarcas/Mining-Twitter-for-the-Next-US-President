@@ -2,11 +2,6 @@ import re
 def preprocess_text(text):
     text = re.sub('((www\.[^\s]+)|(https?://[^\s]+))','URL', text)
     text = re.sub('@[^\s]+','', text)
-
-    # Ignore the preprocessing from below
-    # text = text.lower().replace("ё", "е")
-    # text = re.sub('[^a-zA-Zа-яА-Я]+',' ', text)
-    # text = re.sub(' +',' ', text)
     return text.strip()
 
 import numpy as np
@@ -15,7 +10,6 @@ import pandas as pd
 labels = []
 texts = []
 data = pd.read_csv('vote_all_no_conflict.csv')
-# data = pd.read_csv('vote_json_all_no_conflict_small.csv')
 reviews = np.array(data['text'])
 l = np.array(data['Vote'])
 for label in l:
